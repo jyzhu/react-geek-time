@@ -13,13 +13,39 @@ const comments = [
   { author: "Bood", content: "Hello Rekit!" },
 ];
 export class CommentBox extends React.PureComponent {
+  state = {
+    commentsHistory: comments,
+    inputMsg: ""
+  };
+  
+  handleInput = evt => {
+    
+    this.setState({
+      inputMsg: evt.target.value, 
+    });
+  };
+  handleSend = () => {
+    const text = this.state.inputMsg;
+    if (text) {
+      const newCommentsHistory = [...this.state.commentsHistory, {author: "Judith", content: this.state.inputMsg}];
+      this.setState({
+        commentsHistory: newCommentsHistory,
+        inputMsg: "",
+      });
+    }
+  };
+
   render() {
     return (
       <div className="comment-box">
-        <h1>Comments ({comments.length})</h1>
-        <CommentList comments={comments} />
+        <h1>Comments ({this.state.commentsHistory.length})</h1>
+        <CommentList comments={this.state.commentsHistory} />
+        
+        <input value={this.state.inputMsg} onChange={this.handleInput}/>
+        <button onClick={this.handleSend}>Send</button>
+
         <CommentForm />
-        {this.props.time.getTime()}
+        {this.props.time.toLocaleString()}
       </div>
     );
   }

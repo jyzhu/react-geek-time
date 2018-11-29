@@ -33,7 +33,7 @@ export class ChatApp extends React.Component {
       <div>
         <MessageList messages={this.state.messages} />
         <div>
-          <input value={this.state.inputMsg} />
+          <input value={this.state.inputMsg} onChange={this.handleInput}/>
           <button onClick={this.handleSend}>Send</button>
         </div>
         <h2>{this.props.time.toLocaleString()}</h2>
